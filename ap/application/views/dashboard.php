@@ -6,18 +6,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <style type="text/css">
     #working-pane{
     }
+    .project-tiles:hover{
+        box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.76);
+        cursor: pointer;
+    }
     .project-tiles{
-        /*                position: relative;*/
-        transition: all 1s;
+        transition: all 0.3s;
         width: 230px;
         height: 230px;
         background-color: rgba(0,0,0,0.35);
-        padding-left: 30px;
         color: white;
         padding: 0px;
         margin-left: 30px;
         margin-bottom: 30px;
-
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.76);
     }
     .project-name{
         margin: 0px;
