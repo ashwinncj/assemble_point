@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     #social-icons-container{
         position: fixed;
         bottom: 0px;
-        right: 0px;
+        right: 10px;
     }
     #social-icons-container ul li:hover{
         cursor: pointer;

@@ -4,80 +4,187 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <title>Assemble Point</title>
 <style type="text/css">
-    #working-pane{
+    #create-button{
+        background-color: #038930;
+        color: #fff;
+        font-weight: bold;
+        font-size: 14px;
+        border: none;
+        padding: 5px;
+        padding-left: 25px;
+        padding-right: 25px;
     }
-    .project-tiles:hover{
-        box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.76);
+    #create-button:hover{
         cursor: pointer;
+        background-color: #21ad50;
     }
-    .project-tiles{
-        transition: all 0.3s;
-        width: 230px;
-        height: 230px;
-        background-color: rgba(0,0,0,0.35);
-        color: white;
-        padding: 0px;
-        margin-left: 30px;
-        margin-bottom: 30px;
-        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.76);
+    #project-container-parent{
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+    #project-container{
+        float: none;
+        margin: auto;
     }
     .project-name{
-        margin: 0px;
-        padding: 10px;
-        font-size: 20px;
+        font-size: 18px;
+        font-weight: bold;
     }
-    .project-description{
+    .project-tile-container{
         padding: 10px;
-        font-size: 12px;
     }
-    .project-date{
-        padding: 10px;
+    .project-tile{
+        height: 230px;       
+        overflow: hidden;
+        position: relative;
+        padding: 5px;
+        padding-left: 15px;
+        padding-right: 10px;
+        transition: all 0.3s;
+        opacity: 0.9;
+    }
+    .project-tile:hover{
+        cursor: pointer;
+        box-shadow: 0px 5px 10px 0px #666;
+        opacity: 1;
+    }
+    .project-created-date{
+        text-align: right;
+        font-size: 13px;
         position: absolute;
-        bottom: 0;
-        right: 0;
-        font-size: 11px;
+        bottom: 0px;
+        right: 0px;
+        background-color: inherit;
+        width: 100%;
+        padding: 10px;
+    }
+    .project-tile-container:nth-child(1n) .project-tile{
+        background-color: rgb(225,225,225);
+        color: black; 
+    }
+    .project-tile-container:nth-child(2n) .project-tile{
+        background-color: #f5f5f5;
+        color: black; 
+    }
+    .project-tile-container:nth-child(3) .project-tile{
+        background-color: #66add2;
+        color: white; 
+    }
+    .project-tile-container:nth-child(5n) .project-tile{
+        background-color: #6e91ac;
+        color: white; 
+    }
+    .project-tile-container:nth-child(4n) .project-tile{
+        background-color: #cbcbcb;
+        color: black; 
     }
 </style>
-<div>
-    <div id="dashboard-content" class="col-md-12" style="padding:0;">
-        <?php $this->load->view('templates/sidebar'); ?>
-        <div id="working-pane" class="col-md-9" style="background-color:#243F54;padding-bottom: 50px;">
-            <h3 style="color: white;font-size: 25px;padding-left: 30px;">DASHBOARD</h3>
-            <div class="col-md-12">
-                <div class="col-md-4 project-tiles" style="">
-                    <h3 class="project-name">Project One</h3>
-                    <p class="project-description">Sed odio lorem, porta quis tempor id, vestibulum id neque. Fusce eget nunc congue, ultrices urna quis, vulputate nisl. Aenean semper in massa quis sagittis.</p>
-                    <p class="project-date">Created on 14 Aug 2018</p>
+<title>Assemble Point</title>
+<div id="page-layout">
+    <div id="page-layout-heading">
+        <p>Dashboard</p>
+    </div>
+    <div id="project-container-parent">
+        <button id="create-button">Create</button>    
+        <div id="project-container">
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
                 </div>
-                <div class="col-md-4 project-tiles" style="">
-                    <h3 class="project-name">Project Two</h3>
-                    <p class="project-description">Sed odio lorem, porta quis tempor id, vestibulum id neque. Fusce eget nunc congue, ultrices urna quis, vulputate nisl. Aenean semper in massa quis sagittis.</p>
-                    <p class="project-date">Created on 14 Aug 2018</p>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
                 </div>
-                <div class="col-md-4 project-tiles" style="">
-                    <h3 class="project-name">Project Three</h3>
-                    <p class="project-description">Sed odio lorem, porta quis tempor id, vestibulum id neque. Fusce eget nunc congue, ultrices urna quis, vulputate nisl. Aenean semper in massa quis sagittis.</p>
-                    <p class="project-date">Created on 14 Aug 2018</p>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
                 </div>
-                <div class="col-md-4 project-tiles" style="">
-                    <h3 class="project-name">Project Four</h3>
-                    <p class="project-description">Sed odio lorem, porta quis tempor id, vestibulum id neque. Fusce eget nunc congue, ultrices urna quis, vulputate nisl. Aenean semper in massa quis sagittis.</p>
-                    <p class="project-date">Created on 14 Aug 2018</p>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
                 </div>
-                <div class="col-md-4 project-tiles" style="">
-                    <h3 class="project-name">Project Five</h3>
-                    <p class="project-description">Sed odio lorem, porta quis tempor id, vestibulum id neque. Fusce eget nunc congue, ultrices urna quis, vulputate nisl. Aenean semper in massa quis sagittis.</p>
-                    <p class="project-date">Created on 14 Aug 2018</p>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
                 </div>
-                <div class="col-md-4 project-tiles" style="">
-                    <h3 class="project-name">Project Six</h3>
-                    <p class="project-description">Sed odio lorem, porta quis tempor id, vestibulum id neque. Fusce eget nunc congue, ultrices urna quis, vulputate nisl. Aenean semper in massa quis sagittis.</p>
-                    <p class="project-date">Created on 14 Aug 2018</p>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
                 </div>
-                <div class="col-md-4 project-tiles" style="">
-                    <h3 class="project-name">Project Seven</h3>
-                    <p class="project-description">Sed odio lorem, porta quis tempor id, vestibulum id neque. Fusce eget nunc congue, ultrices urna quis, vulputate nisl. Aenean semper in massa quis sagittis.</p>
-                    <p class="project-date">Created on 14 Aug 2018</p>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 project-tile-container">
+                <div class="project-tile">
+                    <h4 class="project-name">Project Name</h4>
+                    <p>The overall information about the project is given in this description.
+                        The information here may be longer than the available space.
+                        To test out the overflow of the div, the description here is longer.
+                        The information here.</p>
+                    <div class="project-created-date">Created on 14 Aug 2018</div>
                 </div>
             </div>
         </div>

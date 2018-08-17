@@ -17,6 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 float: none;
                 margin: auto;
                 margin-top: 15px;
+                overflow: auto;
             }
             body{
                 background-color: #F5EFE6;
@@ -25,6 +26,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             #top-bar{
                 background-color: #000;
                 height: 24px;
+            }
+            #page-layout-heading{
+                background-color: #eee;
+            }
+            #page-layout-heading p{
+                font-size: 24px;
+                padding-left: 35px;
+                font-weight: normal;
+                color: #666;
             }
         </style>
     </head>
