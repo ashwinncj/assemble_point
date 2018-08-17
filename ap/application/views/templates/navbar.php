@@ -2,25 +2,32 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <style>
-    #navbar-links ul li{
+    #top-navigation li{
         display: inline;
-        padding: 8px;
-        color: white;
+        padding: 5px;
+        color: #666;
+        font-size: 14px;
     }
-    #navbar-links ul{
-        margin: 20px;
-    }
+     #top-navigation li:hover{
+         color: #0089ff;
+         cursor: pointer;
+     }
 </style>
-<!--<div class="col-md-12" style="padding: 0px;background-color: #16517E;height: 55px;position: fixed;top: 0;left: 0;z-index: 10">-->
-<div class="col-md-12" style="padding: 0px;background-color: #16517E;height: 55px;z-index: 10">
-    <div class="col-md-6 text-left" style="padding-left: 50px">
-        <h3 style="margin: 10px;font-weight: bold;padding: 0;font-size: 35px;color: white;">ASSEMBLE POINT</h3>
+<nav>
+    <div style="padding-left: 70px;padding-top: 10px;">
+        <div class="col-md-4" style="width: 300px">
+            <img src="<?php echo base_url('assets/img/logo-combined.png'); ?>" style="width: 300px">
+        </div>
+        <div class="col-md-8" style="padding: 12px">
+            <span>
+                <ul id="top-navigation">
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                    <li>Help</li>
+                    <li>Terms and Conditions</li>
+                </ul>
+            </span>
+        </div>
     </div>
-    <div id="navbar-links" class="col-md-6 text-right">
-        <ul>
-            <li>HOME</li>
-            <li>ABOUT</li>
-            <li>CONTACT</li>
-        </ul>
-    </div>
-</div>
+</nav>
