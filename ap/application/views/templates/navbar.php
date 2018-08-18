@@ -19,12 +19,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <nav>
         <div style="padding-left: 70px;padding-top: 10px;">
             <div class="col-md-4" style="width: 300px">
-                <a id="nav-logo"><img src="<?php echo base_url('assets/img/logo-combined.png'); ?>" style="width: 300px"></a>
+                <a id="nav-logo" href="<?php echo base_url('/'); ?>"><img src="<?php echo base_url('assets/img/logo-combined.png'); ?>" style="width: 300px"></a>
             </div>
             <div class="col-md-8" style="padding: 12px">
                 <span>
                     <ul id="top-navigation">
-                        <li>Projects</li>
+                        <li><a href="<?php echo base_url('/projects'); ?>">Projects</a></li>
                         <li>People</li>
                         <li>Discussions</li>
                         <li>Help</li>

@@ -42,40 +42,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     #home-auth-parent{
         padding-left: 40px;
     }
-    #home-auth form input[type='text'],#home-auth form input[type='password']{
+    #home-auth form input[type='email'],#home-auth form input[type='text'],#home-auth form input[type='password']{
         width: 100%;
         border: none;
         margin-bottom: 10px;
         padding: 5px;
     }
     #home-auth form +p{
-        font-size: 13px;
+        font-size: 12px;
         margin-top: 5px;
     }
     #home-auth a{
         cursor: pointer;
     }
+    #home-auth form ::placeholder{
+        font-size: 12px;
+    }
 </style>
 <title>Assemble Point</title>
 <div id="page-layout">
     <div id="home-intro-banner-parent" class="col-md-12">
-        <div id="home-intro-banner" class="col-md-8">
+        <div id="home-intro-banner" class="col-md-7">
             <p>Use the simple and user-friendly project overview tool and get your efficiency to the fullest.</p>
             <p>Developed especially for companies and clients to bridge the gap of project oversight.</p>
             <p>Try the tool and get to know the benefits and increase your productivity. Its free to try and we'll make your you get the complete satisfaction.</p>
             <button>Learn More</button>
         </div>
-        <div id="home-auth-parent" class="col-md-4">
-            <div id="home-auth">
-                <p>Login. Continue.<br>As simple as that.</p>
-                <form>
-                    <input type="text" name="username" required placeholder="Email">
-                    <input type="password" name="password" required placeholder="Password">
-                    <button type="submit">Login</button>
-                </form>
-                <p>Forgot password? <a>Click here</a><br>
-                Need a new account? <a>Signup here</a></p>
-            </div>
+        <div id="home-auth-parent" class="col-md-5">
+            <?php $form; $this->load->view('templates/'.$form);?>
         </div>
     </div>
 </div>
