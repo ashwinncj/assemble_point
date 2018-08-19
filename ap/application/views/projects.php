@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <p>Dashboard</p>
     </div>
     <div id="project-container-parent">
-        <button id="create-button">Create</button>    
+        <a href="<?php echo base_url('/projects/create'); ?>"><button id="create-button">Create</button></a>
         <div id="project-container">
             <div class="col-lg-4 col-md-6 project-tile-container">
                 <div class="project-tile">

@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         ?>
     </span>
     <form action="<?php echo base_url('/home/authenticate'); ?>" method="post">
-        <input type="text" name="user_email" required placeholder="Email">
+        <input type="email" name="user_email" required placeholder="Email">
         <input type="password" name="user_password" required placeholder="Password">
         <button type="submit">Login</button>
     </form>

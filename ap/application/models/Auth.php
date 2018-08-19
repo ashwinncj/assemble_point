@@ -41,12 +41,14 @@ class Auth extends CI_Model {
         if ($this->user_exists($email)) {
             $_SESSION['error_msg'] = 'Email provided is already registered. Please check the details provided.';
             redirect('/signup');
-        }        
+        }  
+        $hash=  md5(uniqid());
         $data = array(
             'user_email' => $params['user_email'],
             'user_password' => $this->password($params['user_password']),
             'user_full_name'=>$params['user_full_name'],
-            'user_organization'=>$params['user_organization']
+            'user_organization'=>$params['user_organization'],
+            'hash'=>$hash
         );
         $status = $this->db->insert('user_meta', $data) ? TRUE : FALSE;
         return $status;

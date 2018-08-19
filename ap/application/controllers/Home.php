@@ -34,7 +34,7 @@ class Home extends CI_Controller {
         ($this->auth->is_user_logged_in() ? redirect('/projects') : '');
 
         //Check if valid post data is sent before trying to login to the system.
-        isset($_POST['user_email']) ? (isset($_POST['user_password'])? : redirect('home/login')) : redirect('home/login');
+        isset($_POST['user_email']) AND isset($_POST['user_password']) ? '' : redirect('home/login');
         $user = $this->input->post('user_email');
         $password = $this->input->post('user_password');
         $auth = $this->auth->authenticate($user, $password);
