@@ -4,9 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Projects extends CI_Controller {
 
-    public function index() {
+    public function __construct() {
+        parent::__construct();
         $this->load->model('auth');
+        $this->load->model('project');
         ($this->auth->is_user_logged_in() ? '' : $_SESSION['error_msg'] = '* Please login to access your projects' AND redirect('/'));
+    }
+
+    public function index() {
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('projects');
@@ -14,12 +19,58 @@ class Projects extends CI_Controller {
     }
 
     public function create() {
-        $this->load->model('auth');
-        ($this->auth->is_user_logged_in() ? '' : $_SESSION['error_msg'] = '* Please login to access your projects' AND redirect('/'));
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('create');
         $this->load->view('templates/footer');
+    }
+
+    public function logout() {
+        redirect('logout');
+    }
+
+    public function newproject() {
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('newproject');
+        $this->load->view('templates/footer');
+    }
+
+    public function newuser() {
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('newuser');
+        $this->load->view('templates/footer');
+    }
+
+    public function assignuser() {
+        $data['projects'] = $this->project->get_projects();
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('assignuser', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function register() {
+        isset($_POST['user_email']) AND isset($_POST['user_password']) ? '' : redirect('projects/newuser');
+        if (!$this->auth->user_exists($_POST['user_email'])) {
+            $status = $this->auth->add_user($_POST);
+            $status ? $_SESSION['error_msg'] = 'User added successfully' AND redirect('projects/newuser') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newuser');
+        } else {
+            redirect('projects/newuser');
+        }
+    }
+
+    public function addproject() {
+        isset($_POST['project_name']) AND isset($_POST['project_description']) ? '' : redirect('projects/newproject');
+        $status = $this->project->add_project($_POST);
+        $status ? $_SESSION['error_msg'] = 'New projected created successfully' AND redirect('projects/newproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
+    }
+    
+    public function assignprivilages() {
+        isset($_POST['user_email']) AND isset($_POST['project_uid']) ? '' : redirect('projects/assignuser');
+        $status = $this->project->assign_project($_POST);
+        $status ? $_SESSION['error_msg'] = 'User assigned to the project successfully' AND redirect('projects/assignuser') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/assignuser');
     }
 
 }

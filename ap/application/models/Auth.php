@@ -32,15 +32,16 @@ class Auth extends CI_Model {
         $this->db->from('user_meta');
         $this->db->where('user_email', $user);
         $records = $this->db->count_all_results();
-        return $records >= 1 ? TRUE : FALSE;
+        return $records >= 1 ?
+                $_SESSION['error_msg'] = 'Email provided is already registered. Please check the details provided.' AND TRUE : FALSE;
     }
 
     public function add_user($params) {
         $this->load->database();        
         //Check if user exists before proceeding
-        if ($this->user_exists($email)) {
+        if ($this->user_exists($params['user_email'])) {
             $_SESSION['error_msg'] = 'Email provided is already registered. Please check the details provided.';
-            redirect('/signup');
+            return FALSE;
         }  
         $hash=  md5(uniqid());
         $data = array(

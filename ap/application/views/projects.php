@@ -82,7 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <title>Assemble Point</title>
 <div id="page-layout">
     <div id="page-layout-heading">
-        <p>Dashboard</p>
+        <p>Projects</p>
     </div>
     <div id="project-container-parent">
         <a href="<?php echo base_url('/projects/create'); ?>"><button id="create-button">Create</button></a>
