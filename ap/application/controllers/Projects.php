@@ -12,10 +12,7 @@ class Projects extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('templates/header');
-        $this->load->view('templates/navbar');
-        $this->load->view('projects');
-        $this->load->view('templates/footer');
+        $this->projects();
     }
 
     public function create() {
@@ -44,7 +41,9 @@ class Projects extends CI_Controller {
     }
 
     public function assignuser() {
-        $data['projects'] = $this->project->get_projects();
+        $this->load->model('user');
+        $data['projects'] = $this->project->get_projects_short();
+        $data['users'] = $this->user->get_users();
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('assignuser', $data);
@@ -66,11 +65,20 @@ class Projects extends CI_Controller {
         $status = $this->project->add_project($_POST);
         $status ? $_SESSION['error_msg'] = 'New projected created successfully' AND redirect('projects/newproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
     }
-    
+
     public function assignprivilages() {
         isset($_POST['user_email']) AND isset($_POST['project_uid']) ? '' : redirect('projects/assignuser');
         $status = $this->project->assign_project($_POST);
         $status ? $_SESSION['error_msg'] = 'User assigned to the project successfully' AND redirect('projects/assignuser') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/assignuser');
+    }
+
+    public function projects() {
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->model('user');
+        $data['info'] = $this->project->get_projects_complete($this->user->get_uid());
+        $this->load->view('projects', $data);
+        $this->load->view('templates/footer');
     }
 
 }

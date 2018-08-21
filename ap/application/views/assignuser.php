@@ -57,28 +57,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <title>Assemble Point</title>
 <div id="page-layout">
     <div id="page-layout-heading">
-        <p>Create New Project</p>
+        <p>Assign Privilages</p>
     </div>
     <div id="project-container-parent">
         <div id="project-container">
             <div class="create-container">
                 <p><a href="<?php echo base_url('projects/create'); ?>"><- Go back</a></p>
                 <div>
-                    <form action="<?php echo base_url(); ?>" method="post">
+                    <span style="color: red;">
+                        <?php
+                        if (isset($_SESSION['error_msg'])) {
+                            echo $_SESSION['error_msg'];
+                            unset($_SESSION['error_msg']);
+                        }
+                        ?>
+                    </span>
+                    <form action="<?php echo base_url('projects/assignprivilages'); ?>" method="post">
                         <table>
                             <tr>
                                 <td>User/Email</td>
-                                <td><input type="email" name="user_email" required placeholder="User/Email"></td>                                
+                                <td>
+                                    <select name="uid" required>
+                                        <option selected disabled value="">Select user</option>
+                                        <?php foreach ($users as $value) { ?>
+                                            <option value="<?php echo $value['uid']; ?>">
+                                                <?php echo $value['user_name']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>                                </td> 
                             </tr>                            
                             <tr>
                                 <td>Project</td>
 <!--                                <td><input type="text" name="project_uid" required placeholder="Proect"></td>                                -->
                                 <td>
-                                    <select name="project_uid" required>
-                                        <?php foreach ($projects as $value){?>
-                                        <option value="<?php echo $value['pid']; ?>">
-                                            <?php echo $value['project_name']; ?>
-                                        </option>
+                                    <select name="pid" required>
+                                        <option selected disabled value="">Select project</option>
+                                        <?php foreach ($projects as $value) { ?>
+                                            <option value="<?php echo $value['pid']; ?>">
+                                                <?php echo $value['project_name']; ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </td>                                

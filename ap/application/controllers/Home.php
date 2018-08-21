@@ -37,8 +37,9 @@ class Home extends CI_Controller {
         $password = $this->input->post('user_password');
         $auth = $this->auth->authenticate($user, $password);
         if ($auth) {
+            $this->load->model('user');
+            $this->user->set_user_info($user);
             $_SESSION['user_logged'] = 'true';
-            $_SESSION['user_email'] = $user;
             redirect('/projects');
         } else {
             $_SESSION['error_msg'] = '* Invalid Credentials';

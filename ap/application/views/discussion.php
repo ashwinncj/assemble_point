@@ -97,73 +97,61 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <hr>
         <div id="discussion-container">
-            <div class="discussion-left">
-                <span class="profile-img"><img src="<?php echo base_url('assets/img/getimage.jpg'); ?>"></span>
-                <span class="discussion-text">
-                    <h5 class="profile-name">Joseph Radel</h5>
-                    <p class="discussion-comment">Praesent condimentum justo pharetra, venenatis turpis at, dapibus libero.
-                        Nam dictum, nulla vitae facilisis dapibus, lorem lectus consequat leo, et eleifend urna magna vel eros. 
-                        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-                        Suspendisse vel velit non velit fringilla ultricies at ut erat.</p>
-                    <p class="discussion-date">Commented on 13 May 2018</p>
-                </span>
-            </div>
-            <div class="discussion-left">
-                <span class="profile-img"><img src="<?php echo base_url('assets/img/harshitha.jpg'); ?>"></span>
-                <span class="discussion-text">
-                    <h5 class="profile-name">Harshitha Mavoori</h5>
-                    <p class="discussion-comment">
-                        Duis a convallis orci. Phasellus eu nibh nec turpis ornare molestie a sit amet leo. Nam fringilla neque quis velit commodo tristique. Nulla sed vehicula magna, ut suscipit odio.</p>
-                    <p class="discussion-date">Commented on 15 May 2018</p>
-                </span>
-            </div>
-            <div class="discussion-left">
-                <span class="profile-img"><img src="<?php echo base_url('assets/img/harshitha.jpg'); ?>"></span>
-                <span class="discussion-text">
-                    <h5 class="profile-name">Harshitha Mavoori</h5>
-                    <p class="discussion-comment">Phasellus sed augue eros.    nunc sit amet dui consectetur scelerisque. Nulla facilisi.
-                        Donec a neque finibus, malesuada nisi quis, hendrerit ligula.   Donec tempor ex id est placerat convallis. Proin non imperdiet lectus. Donec aliquet odio in mi facilisis euismod. Mauris interdum eget tellus et porttitor. Praesent convallis tortor augue, sed fringilla justo accumsan vel.
-                        <br><br>
-                        Morbi tristique nibh nec risus efficitur feugiat. Praesent lorem neque, facilisis vitae bibendum eu, blandit sit amet nunc. Aliquam erat volutpat. Nam ac imperdiet lorem, maximus viverra purus.</p>
-                    <p class="discussion-date">Commented on 18 May 2018</p>
-                </span>
-            </div>
-            <div class="discussion-right">
-                <span class="discussion-text">
-                    <h5 class="profile-name">Ashwin Kumar C</h5>
-                    <p class="discussion-comment">Sed laoreet risus ex, vel posuere mi laoreet in.   Proin venenatis metus a tellus scelerisque semper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id velit eu turpis elementum viverra a ullamcorper sem. Quisque quis nisi feugiat, blandit enim at, maximus nunc.</p>
-                    <p class="discussion-date">Commented on 20 May 2018</p>
-                </span>
-                <span class="profile-img"><img src="<?php echo base_url('assets/img/ashwin.jpg'); ?>"></span>
-            </div>
-            <div class="discussion-right">
-                <span class="discussion-text">
-                    <h5 class="profile-name">Ashwin Kumar C</h5>
-                    <p class="discussion-comment">Sure. WIll do it.<br>
-                        Thanks.</p>
-                    <p class="discussion-date">Commented on 21 May 2018</p>
-                </span>
-                <span class="profile-img"><img src="<?php echo base_url('assets/img/ashwin.jpg'); ?>"></span>
-            </div>
-            <div class="discussion-left">
-                <span class="profile-img"><img src="<?php echo base_url('assets/img/mahesh.jpg'); ?>"></span>
-                <span class="discussion-text">
-                    <h5 class="profile-name">Mahesh S</h5>
-                    <p class="discussion-comment">Proin iaculis efficitur tincidunt. Sed molestie, diam a eleifend scelerisque, turpis massa volutpat velit, in tincidunt mauris nisi sit amet ante. Morbi quis porttitor turpis. Maecenas venenatis dignissim metus, ac molestie odio dapibus at. Cras sit amet commodo libero. Nulla a erat eu tortor pretium fringilla vel nec lectus. Vivamus facilisis vel ligula at fermentum.</p>
-                    <p class="discussion-date">Commented on 23 May 2018</p>
-                </span>
-            </div>
-            <div class="discussion-right">
-                <span class="discussion-text">
-                    <h5 class="profile-name">Ashwin Kumar C</h5>
-                    <span class="discussion-comment">
-                        <textarea style="width: 100%;height: 150px"></textarea>
+            <?php
+            if ($comments) {
+                $comments=  array_reverse($comments);
+                foreach ($comments as $value) {
+                    if ($value['uid'] == $uid) {
+                        ?>
+                        <div class="discussion-right">
+                            <span class="discussion-text">
+                                <h5 class="profile-name"><?php echo $value['user_full_name'] ?></h5>
+                                <p class="discussion-comment"><?php echo $value['comment'] ?></p>
+                                <p class="discussion-date">Commented on <?php echo $value['posted_on'] ?></p>
+                            </span>
+                            <span class="profile-img"><img src="<?php echo $value['profile_pic']; ?>"></span>
+                        </div>
+                    <?php } else {
+                        ?>
+                        <div class = "discussion-left">
+                            <span class = "profile-img"><img src = "<?php echo $value['profile_pic']; ?>"></span>
+                            <span class = "discussion-text">
+                                <h5 class="profile-name"><?php echo $value['user_full_name'] ?></h5>
+                                <p class="discussion-comment"><?php echo $value['comment'] ?></p>
+                                <p class="discussion-date">Commented on <?php echo $value['posted_on'] ?></p>
+                            </span>
+                        </div>
+                        <?php
+                    }
+                }
+            }
+            ?>            
+            <?php if ($access == 'comment') { ?>
+                <div class="discussion-right">
+                    <span class="discussion-text">
+                        <form action="<?php echo base_url('discussion/comment'); ?>" method="post">
+                            <h5 class="profile-name"><?php echo $_SESSION['user_full_name']; ?></h5>
+                            <span class="discussion-comment">
+                                <input type="text" value="<?php echo $pid; ?>" name="pid" style="display: none;">
+                                <textarea name="comment" id="comment-box" style="width: 100%;height: 150px"></textarea>
+                            </span>
+                            <p class="discussion-date">Comment on 16 Aug 2018</p>       
+                            <button type="submit" id="new-comment">Comment</button>                           
+                        </form>
                     </span>
-                    <p class="discussion-date">Comment on 16 Aug 2018</p>       
-                    <button id="new-comment">Comment</button>
-                </span>
-                <span class="profile-img"><img src="<?php echo base_url('assets/img/ashwin.jpg'); ?>"></span>
-            </div>
+                    <span class="profile-img"><img src="<?php echo $_SESSION['profile_pic']; ?>"></span>
+                </div>
+            <?php } else { ?>
+                <div class="discussion-right">
+                    <span class="discussion-text">
+                        <h5 class="profile-name"><?php echo $_SESSION['user_full_name']; ?></h5>
+                        <span class="discussion-comment" style="color: red">
+                            You cannot post comment in this project. Contact admin to get additional access.
+                        </span>                        
+                    </span>
+                    <span class="profile-img"><img src="<?php echo $_SESSION['profile_pic']; ?>"></span>
+                </div>
+            <?php } ?>
         </div>
     </div>
 </div>

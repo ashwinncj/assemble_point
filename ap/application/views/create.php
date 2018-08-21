@@ -28,10 +28,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
     <div id="project-container-parent">
         <div id="project-container">
+            <p><a href="<?php echo base_url('projects/'); ?>"><- Go back</a></p>
             <div class="create-container">
-                <p><a href="<?php echo base_url('projects/newproject');?>">Create new project</a></p>
-                <p><a href="<?php echo base_url('projects/newuser');?>">Add new user</a></p>
-                <p><a href="<?php echo base_url('projects/assignuser');?>">Assign user to project</a></p>
+                <p><a href="<?php echo base_url('projects/newproject'); ?>">Create new project</a></p>
+                <p><a href="<?php echo base_url('projects/newuser'); ?>">Add new user</a></p>
+                <p><a href="<?php echo base_url('projects/assignuser'); ?>">Assign user to project</a></p>
             </div>
         </div>
     </div>
