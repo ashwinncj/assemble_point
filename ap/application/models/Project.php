@@ -17,6 +17,20 @@ class Project extends CI_Model {
         return $status;
     }
 
+    public function delete_project($params) {
+        $this->db->where('pid',$params['pid']);
+        $status = $this->db->delete('project_meta') ? TRUE : FALSE;
+        return $status;
+    }
+
+    public function update_project($params) {
+        $this->db->set('project_name',$params['project_name']);
+        $this->db->set('project_description',$params['project_description']);
+        $this->db->where('pid',$params['pid']);
+        $status = $this->db->update('project_meta', $data) ? TRUE : FALSE;
+        return $status;
+    }
+    
     public function get_projects_short() {
         $this->db->from('project_meta');
         $this->db->select('pid');
@@ -61,12 +75,13 @@ class Project extends CI_Model {
 
     public function get_project_info($pid) {
         $this->db->from('project_meta');
-        $this->db->select('project_name');
+        $this->db->select('project_name, project_description');
         $this->db->where('pid', $pid);
         $query = $this->db->get();
         $count = 0;
         foreach ($query->result() as $row) {
             $data['project_name'] = $row->project_name;
+            $data['project_description'] = $row->project_description;
             $count++;
         }
         return $data;

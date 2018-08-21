@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <span>
                     <ul id="top-navigation">
                         <li><a href="<?php echo base_url('/projects'); ?>">Projects</a></li>
+                        <li><a href="<?php echo base_url('/profile'); ?>">Profile</a></li>
                         <li>People</li>
                         <li>Discussions</li>
                         <li>Help</li>

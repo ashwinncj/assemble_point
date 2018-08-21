@@ -16,14 +16,14 @@ class Discussion extends CI_Controller {
         redirect('projects');
     }
 
-    public function project($pid) {
+    public function project($pid,$limit=20) {
         $this->load->model('project');
         $data['access'] = $this->user->get_access_level($pid);
         $data['uid'] = $this->user->get_uid();
         $data['pid'] = $pid;
         $data['project_info']=  $this->project->get_project_info($pid);
         (!$data['access'] ? redirect('/projects') : '');
-        $data['comments'] = $this->discuss->get_comments($pid);
+        $data['comments'] = $this->discuss->get_comments($pid,$limit);
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('discussion', $data);

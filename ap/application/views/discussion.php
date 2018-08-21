@@ -91,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <hr>
         <div id="discussion-status">
             <span>Showing latest comments</span>
-            <span><a>Show all comments</a></span>
+            <span><a href="<?php echo base_url('discussion/project/'.$pid.'/all'); ?>">Show all comments</a></span>
             <span><a>Jump to latest comment</a></span>
         </div>
         <hr>

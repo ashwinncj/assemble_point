@@ -63,4 +63,13 @@ class User extends CI_Model {
         }
     }
 
+    public function update_profile() {
+        $this->db->set('user_full_name', $_POST['user_full_name']);
+        $this->db->set('user_organization', $_POST['user_organization']);
+        $this->db->where('user_email',$_SESSION['user_email']);
+        $status=$this->db->update('user_meta');
+        $this->set_user_info($_SESSION['user_email']);
+        return $status;        
+    }
+
 }

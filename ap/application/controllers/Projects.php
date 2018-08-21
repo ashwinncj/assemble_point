@@ -50,6 +50,15 @@ class Projects extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function editproject() {
+        $this->load->model('user');
+        $data['projects'] = $this->project->get_projects_short();
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('editproject', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function register() {
         isset($_POST['user_email']) AND isset($_POST['user_password']) ? '' : redirect('projects/newuser');
         if (!$this->auth->user_exists($_POST['user_email'])) {
@@ -64,6 +73,28 @@ class Projects extends CI_Controller {
         isset($_POST['project_name']) AND isset($_POST['project_description']) ? '' : redirect('projects/newproject');
         $status = $this->project->add_project($_POST);
         $status ? $_SESSION['error_msg'] = 'New projected created successfully' AND redirect('projects/newproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
+    }
+
+    public function updateproject() {
+        isset($_POST['project_name']) AND isset($_POST['project_description']) AND isset($_POST['pid']) ? '' : redirect('projects/editproject');
+        $status = $this->project->update_project($_POST);
+        $status ? $_SESSION['error_msg'] = 'Projected updated successfully' AND redirect('projects/editproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
+    }
+
+    public function deleteproject() {
+        isset($_POST['pid']) ? '' : redirect('projects/editproject');
+        $status = $this->project->delete_project($_POST);
+        $status ? $_SESSION['error_msg'] = 'Projected deleted successfully' AND redirect('projects/editproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
+    }
+
+    public function projectinfo() {
+        isset($_POST['pid']) ? '' : redirect('projects');
+        $data['info'] = $this->project->get_project_info($_POST['pid']);
+        $data['pid'] = $_POST['pid'];
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('projectinfo', $data);
+        $this->load->view('templates/footer');
     }
 
     public function assignprivilages() {
