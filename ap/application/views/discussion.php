@@ -125,7 +125,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             }
             ?>            
-            <?php if ($access == 'comment') { ?>
+            <?php if ($access == 'comment' OR $_SESSION['sudo']==TRUE) { ?>
                 <div class="discussion-right">
                     <span class="discussion-text">
                         <form action="<?php echo base_url('discussion/comment'); ?>" method="post">

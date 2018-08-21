@@ -16,6 +16,7 @@ class Projects extends CI_Controller {
     }
 
     public function create() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('create');
@@ -27,6 +28,7 @@ class Projects extends CI_Controller {
     }
 
     public function newproject() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('newproject');
@@ -34,6 +36,7 @@ class Projects extends CI_Controller {
     }
 
     public function newuser() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('newuser');
@@ -41,6 +44,7 @@ class Projects extends CI_Controller {
     }
 
     public function assignuser() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         $this->load->model('user');
         $data['projects'] = $this->project->get_projects_short();
         $data['users'] = $this->user->get_users();
@@ -51,6 +55,7 @@ class Projects extends CI_Controller {
     }
 
     public function editproject() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         $this->load->model('user');
         $data['projects'] = $this->project->get_projects_short();
         $this->load->view('templates/header');
@@ -70,24 +75,28 @@ class Projects extends CI_Controller {
     }
 
     public function addproject() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         isset($_POST['project_name']) AND isset($_POST['project_description']) ? '' : redirect('projects/newproject');
         $status = $this->project->add_project($_POST);
         $status ? $_SESSION['error_msg'] = 'New projected created successfully' AND redirect('projects/newproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
     }
 
     public function updateproject() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         isset($_POST['project_name']) AND isset($_POST['project_description']) AND isset($_POST['pid']) ? '' : redirect('projects/editproject');
         $status = $this->project->update_project($_POST);
         $status ? $_SESSION['error_msg'] = 'Projected updated successfully' AND redirect('projects/editproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
     }
 
     public function deleteproject() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         isset($_POST['pid']) ? '' : redirect('projects/editproject');
         $status = $this->project->delete_project($_POST);
         $status ? $_SESSION['error_msg'] = 'Projected deleted successfully' AND redirect('projects/editproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
     }
 
     public function projectinfo() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         isset($_POST['pid']) ? '' : redirect('projects');
         $data['info'] = $this->project->get_project_info($_POST['pid']);
         $data['pid'] = $_POST['pid'];
@@ -98,9 +107,10 @@ class Projects extends CI_Controller {
     }
 
     public function assignprivilages() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
         isset($_POST['user_email']) AND isset($_POST['project_uid']) ? '' : redirect('projects/assignuser');
         $status = $this->project->assign_project($_POST);
-        $status ? $_SESSION['error_msg'] = 'User assigned to the project successfully' AND redirect('projects/assignuser') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/assignuser');
+        $status ? $_SESSION['error_msg'] = 'User privilages updated successfully' AND redirect('projects/assignuser') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/assignuser');
     }
 
     public function projects() {

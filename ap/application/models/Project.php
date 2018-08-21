@@ -18,19 +18,19 @@ class Project extends CI_Model {
     }
 
     public function delete_project($params) {
-        $this->db->where('pid',$params['pid']);
+        $this->db->where('pid', $params['pid']);
         $status = $this->db->delete('project_meta') ? TRUE : FALSE;
         return $status;
     }
 
     public function update_project($params) {
-        $this->db->set('project_name',$params['project_name']);
-        $this->db->set('project_description',$params['project_description']);
-        $this->db->where('pid',$params['pid']);
+        $this->db->set('project_name', $params['project_name']);
+        $this->db->set('project_description', $params['project_description']);
+        $this->db->where('pid', $params['pid']);
         $status = $this->db->update('project_meta', $data) ? TRUE : FALSE;
         return $status;
     }
-    
+
     public function get_projects_short() {
         $this->db->from('project_meta');
         $this->db->select('pid');
@@ -59,7 +59,10 @@ class Project extends CI_Model {
     public function get_projects_complete($uid) {
         $this->db->from('project_meta');
         $this->db->join('access_control', 'project_meta.pid=access_control.pid');
-        $this->db->where('access_control.uid', $uid);
+        if (!$_SESSION['sudo']) {
+            $this->db->where('access_control.uid', $uid);
+            $this->db->not_like('access_control.access_level', 'FALSE');
+        }
         $this->db->order_by('creation_date', 'DESC');
         $query = $this->db->get();
         $count = 0;
@@ -70,7 +73,7 @@ class Project extends CI_Model {
             $data[$count]['project_description'] = $row->project_description;
             $count++;
         }
-        return $data;
+        return ($count > 0 ? $data : FALSE);
     }
 
     public function get_project_info($pid) {

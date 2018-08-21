@@ -1,10 +1,14 @@
 <?php
 
 class Auth extends CI_Model {
-    
+
     public function __construct() {
         parent::__construct();
         $this->load->database();
+    }
+
+    public function is_sudo() {
+        return $_SESSION['sudo'] ? TRUE : FALSE;
     }
 
     public function authenticate($user, $pwd) {
@@ -42,19 +46,19 @@ class Auth extends CI_Model {
     }
 
     public function add_user($params) {
-        $this->load->database();        
+        $this->load->database();
         //Check if user exists before proceeding
         if ($this->user_exists($params['user_email'])) {
             $_SESSION['error_msg'] = 'Email provided is already registered. Please check the details provided.';
             return FALSE;
-        }  
-        $hash=  md5(uniqid());
+        }
+        $hash = md5(uniqid());
         $data = array(
             'user_email' => $params['user_email'],
             'user_password' => $this->password($params['user_password']),
-            'user_full_name'=>$params['user_full_name'],
-            'user_organization'=>$params['user_organization'],
-            'hash'=>$hash
+            'user_full_name' => $params['user_full_name'],
+            'user_organization' => $params['user_organization'],
+            'hash' => $hash
         );
         $status = $this->db->insert('user_meta', $data) ? TRUE : FALSE;
         return $status;

@@ -85,21 +85,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <p>Projects</p>
     </div>
     <div id="project-container-parent">
-        <a href="<?php echo base_url('/projects/create'); ?>"><button id="create-button">Create</button></a>
+        <?php if ($_SESSION['sudo']) { ?>
+            <a href="<?php echo base_url('/projects/create'); ?>"><button id="create-button">Create</button></a>
+        <?php } ?>
         <div id="project-container">
             <?php
-            foreach ($info as $value) {
-                ?>
-                <div class="col-lg-4 col-md-6 project-tile-container">
-                    <a href="<?php echo base_url('discussion/project/'.$value['pid']); ?>">
-                        <div class="project-tile">
-                            <h4 class="project-name"><?php echo $value['project_name']; ?></h4>
-                            <p><?php echo $value['project_description']; ?></p>
-                            <div class="project-created-date">Created on <?php echo $value['creation_date']; ?></div>
-                        </div>
-                    </a>
-                </div>
-                <?php
+            if ($info) {
+                foreach ($info as $value) {
+                    ?>
+                    <div class="col-lg-4 col-md-6 project-tile-container">
+                        <a href="<?php echo base_url('discussion/project/' . $value['pid']); ?>">
+                            <div class="project-tile">
+                                <h4 class="project-name"><?php echo $value['project_name']; ?></h4>
+                                <p><?php echo $value['project_description']; ?></p>
+                                <div class="project-created-date">Created on <?php echo $value['creation_date']; ?></div>
+                            </div>
+                        </a>
+                    </div>
+                    <?php
+                }
             }
             ?>
         </div>

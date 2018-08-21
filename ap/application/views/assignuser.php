@@ -103,13 +103,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                                 <td>Role</td>
                                 <td>
+                                    <input type="radio" name="user_role" required value="FALSE" checked style="width: max-content;"><span> None</span><br>
                                     <input type="radio" name="user_role" required value="view" checked style="width: max-content;"><span> View only</span><br>
                                     <input type="radio" name="user_role" required value="comment" style="width: max-content;"><span> Comment</span>
                                 </td>                                
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><a href="<?php echo base_url('/projects/create'); ?>"><button id="create-button">Add</button></a></td>
+                                <td><button id="create-button">Update</button></td>
                             </tr>
                         </table>
                     </form>
