@@ -5,6 +5,7 @@ class Discuss extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->load->database();
+        date_default_timezone_set("Asia/Kolkata");
     }
 
     public function add_comment($data) {
@@ -25,7 +26,7 @@ class Discuss extends CI_Model {
             $data[$count]['uid'] = $row->uid;
             $data[$count]['user_full_name'] = $row->user_full_name;
             $row->profile_pic == '' ?  $data[$count]['profile_pic'] = 'http://localhost/assemblepoint/ap/assets/img/anonymous.jpg' : $data[$count]['profile_pic'] = $row->profile_pic;
-            $data[$count]['posted_on'] = date("d M Y", $row->posted_on);
+            $data[$count]['posted_on'] = date("d M Y H:i:s", $row->posted_on);
             $data[$count]['comment'] = $row->comment;
             $count++;
         }

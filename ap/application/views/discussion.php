@@ -87,12 +87,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <p>Discussion</p>
     </div>
     <div id="discussion-container-parent">
-        <h3 id="project-name">Project Name</h3>
+        <h3 id="project-name"><?php echo $project_info['project_name']; ?></h3>
         <hr>
         <div id="discussion-status">
-            <span><a>13 Comments</a></span>
-            <span><a>Last interaction on 16 Aug 2018</a></span>
-            <span><a>Load previous comments</a></span>
+            <span>Showing latest comments</span>
+            <span><a>Show all comments</a></span>
             <span><a>Jump to latest comment</a></span>
         </div>
         <hr>
@@ -135,7 +134,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" value="<?php echo $pid; ?>" name="pid" style="display: none;">
                                 <textarea name="comment" id="comment-box" style="width: 100%;height: 150px"></textarea>
                             </span>
-                            <p class="discussion-date">Comment on 16 Aug 2018</p>       
+                            <p class="discussion-date">Comment on <?php echo date('d M Y');?></p>       
                             <button type="submit" id="new-comment">Comment</button>                           
                         </form>
                     </span>

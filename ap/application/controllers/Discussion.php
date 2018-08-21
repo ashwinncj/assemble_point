@@ -17,9 +17,11 @@ class Discussion extends CI_Controller {
     }
 
     public function project($pid) {
+        $this->load->model('project');
         $data['access'] = $this->user->get_access_level($pid);
         $data['uid'] = $this->user->get_uid();
         $data['pid'] = $pid;
+        $data['project_info']=  $this->project->get_project_info($pid);
         (!$data['access'] ? redirect('/projects') : '');
         $data['comments'] = $this->discuss->get_comments($pid);
         $this->load->view('templates/header');
@@ -32,10 +34,12 @@ class Discussion extends CI_Controller {
         $access = $this->user->get_access_level($_POST['pid']);
         $access == 'comment' ? '' : redirect('projects');
         $data['pid'] = $_POST['pid'];
+        $pid=$_POST['pid'];
         $data['uid'] = $this->user->get_uid();
         $data['comment'] = $_POST['comment'];
         $data['posted_on'] = time();
         $status = $this->discuss->add_comment($data);
+        $status ? redirect('discussion/project/'.$pid) : $_SESSION['error_msg'] = 'There was an error. Please try again.';
     }
 
 }

@@ -45,7 +45,7 @@ class Project extends CI_Model {
     public function get_projects_complete($uid) {
         $this->db->from('project_meta');
         $this->db->join('access_control', 'project_meta.pid=access_control.pid');
-        $this->db->where('access_control.uid',$uid);
+        $this->db->where('access_control.uid', $uid);
         $this->db->order_by('creation_date', 'DESC');
         $query = $this->db->get();
         $count = 0;
@@ -54,6 +54,19 @@ class Project extends CI_Model {
             $data[$count]['pid'] = $row->pid;
             $data[$count]['creation_date'] = date("d M Y", $row->creation_date);
             $data[$count]['project_description'] = $row->project_description;
+            $count++;
+        }
+        return $data;
+    }
+
+    public function get_project_info($pid) {
+        $this->db->from('project_meta');
+        $this->db->select('project_name');
+        $this->db->where('pid', $pid);
+        $query = $this->db->get();
+        $count = 0;
+        foreach ($query->result() as $row) {
+            $data['project_name'] = $row->project_name;
             $count++;
         }
         return $data;
