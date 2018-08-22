@@ -32,7 +32,7 @@ class Discussion extends CI_Controller {
 
     public function comment() {
         $access = $this->user->get_access_level($_POST['pid']);
-        $access == 'comment' ? '' : redirect('projects');
+        $access == 'comment' OR $access=='sudo'? '' : redirect('projects');
         $data['pid'] = $_POST['pid'];
         $pid = $_POST['pid'];
         $data['uid'] = $this->user->get_uid();

@@ -110,7 +110,7 @@ class Projects extends CI_Controller {
         $this->auth->is_sudo() ? '' : redirect('projects');
         isset($_POST['user_email']) AND isset($_POST['project_uid']) ? '' : redirect('projects/assignuser');
         $status = $this->project->assign_project($_POST);
-        $status ? $_SESSION['error_msg'] = 'User privilages updated successfully' AND redirect('projects/assignuser') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/assignuser');
+        $status ? $_SESSION['error_msg'] = 'User privileges updated successfully' AND redirect('projects/assignuser') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/assignuser');
     }
 
     public function projects() {

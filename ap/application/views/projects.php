@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
     <div id="project-container-parent">
         <?php if ($_SESSION['sudo']) { ?>
-            <a href="<?php echo base_url('/projects/create'); ?>"><button id="create-button">Create</button></a>
+            <a href="<?php echo base_url('/projects/create'); ?>"><button id="create-button">Create / Edit</button></a>
         <?php } ?>
         <div id="project-container">
             <?php
