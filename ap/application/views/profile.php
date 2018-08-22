@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <title>Assemble Point</title>
 <style type="text/css">    
-    #create-button{
+    .create-button{
         background-color: #038930;
         color: #fff;
         font-weight: bold;
@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         padding-left: 25px;
         padding-right: 25px;
     }
-    #create-button:hover{
+    .create-button:hover{
         cursor: pointer;
         background-color: #21ad50;
     }
@@ -97,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                                 <td></td>
                                 <td>
-                                    <button type="submit" id="create-button">Update</button>
+                                    <button type="submit" class="create-button">Update</button>
                                 </td>
                             </tr>
                             <tr style="display: none">
@@ -111,6 +111,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </td>
                             </tr>
                         </table>
+                    </form>
+                </div>
+                <div id="profile-pic-update" style="margin-top: 25px">
+                    <p style="font-size: 14px;font-weight: bold;color: gray;">Profile picture</p>
+                    <hr>
+                    <img src="<?php echo $_COOKIE['profile_pic'];?>" style="width: 150px;border-radius: 50%">
+                    <form action="<?php echo base_url('profile/profile_pic_update'); ?>" method="post" enctype="multipart/form-data">
+                        <input type="file" name="profile_pic" required style="margin: 20px 0 20px 0;">
+                        <button type="submit" class="create-button">Update</button>
                     </form>
                 </div>
             </div>

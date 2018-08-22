@@ -58,11 +58,12 @@ class Project extends CI_Model {
 
     public function get_projects_complete($uid) {
         $this->db->from('project_meta');
-        $this->db->join('access_control', 'project_meta.pid=access_control.pid');
+        $this->db->join('access_control', 'project_meta.pid=access_control.pid','left');
         if (!$_SESSION['sudo']) {
             $this->db->where('access_control.uid', $uid);
             $this->db->not_like('access_control.access_level', 'FALSE');
         }
+        $this->db->select('project_name,project_meta.pid as pid,creation_date,project_description');
         $this->db->order_by('creation_date', 'DESC');
         $query = $this->db->get();
         $count = 0;

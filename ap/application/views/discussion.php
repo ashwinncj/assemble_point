@@ -80,6 +80,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         cursor: pointer;
         background-color: #21ad50;
     }
+    .delete-comment-link:hover{
+        cursor: pointer;
+    }
 </style>
 <title>Assemble Point</title>
 <div id="page-layout">
@@ -91,14 +94,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <hr>
         <div id="discussion-status">
             <span>Showing latest comments</span>
-            <span><a href="<?php echo base_url('discussion/project/'.$pid.'/all'); ?>">Show all comments</a></span>
-            <span><a>Jump to latest comment</a></span>
+            <span><a href="<?php echo base_url('discussion/project/' . $pid . '/all'); ?>">Show all comments</a></span>
+            <span><a onclick='$("html, body").animate({scrollTop: $(document).height()}, 1000);'>Jump to latest comment</a></span>
         </div>
         <hr>
         <div id="discussion-container">
             <?php
             if ($comments) {
-                $comments=  array_reverse($comments);
+                $comments = array_reverse($comments);
                 foreach ($comments as $value) {
                     if ($value['uid'] == $uid) {
                         ?>
@@ -107,6 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <h5 class="profile-name"><?php echo $value['user_full_name'] ?></h5>
                                 <p class="discussion-comment"><?php echo $value['comment'] ?></p>
                                 <p class="discussion-date">Commented on <?php echo $value['posted_on'] ?></p>
+                                <p class="discussion-date"><a class="delete-comment-link" href="<?php echo base_url('discussion/delete_comment/' . $pid . '/' . $value['cid']); ?>">Delete comment</a></p>
                             </span>
                             <span class="profile-img"><img src="<?php echo $value['profile_pic']; ?>"></span>
                         </div>
@@ -125,7 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             }
             ?>            
-            <?php if ($access == 'comment' OR $_SESSION['sudo']==TRUE) { ?>
+            <?php if ($access == 'comment' OR $_SESSION['sudo'] == TRUE) { ?>
                 <div class="discussion-right">
                     <span class="discussion-text">
                         <form action="<?php echo base_url('discussion/comment'); ?>" method="post">
@@ -134,11 +138,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" value="<?php echo $pid; ?>" name="pid" style="display: none;">
                                 <textarea name="comment" id="comment-box" style="width: 100%;height: 150px"></textarea>
                             </span>
-                            <p class="discussion-date">Comment on <?php echo date('d M Y');?></p>       
+                            <p class="discussion-date">Comment on <?php echo date('d M Y'); ?></p>       
                             <button type="submit" id="new-comment">Comment</button>                           
                         </form>
                     </span>
-                    <span class="profile-img"><img src="<?php echo $_SESSION['profile_pic']; ?>"></span>
+                    <span class="profile-img"><img src="<?php echo $_COOKIE['profile_pic']; ?>"></span>
                 </div>
             <?php } else { ?>
                 <div class="discussion-right">
@@ -148,9 +152,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             You cannot post comment in this project. Contact admin to get additional access.
                         </span>                        
                     </span>
-                    <span class="profile-img"><img src="<?php echo $_SESSION['profile_pic']; ?>"></span>
+                    <span class="profile-img"><img src="<?php echo $_COOKIE['profile_pic']; ?>"></span>
                 </div>
             <?php } ?>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("html, body").animate({scrollTop: $(document).height()}, 1000);
+    });
+</script>

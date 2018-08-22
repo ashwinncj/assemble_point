@@ -17,9 +17,9 @@ class Discuss extends CI_Model {
         $this->db->from('discussions');
         $this->db->where('pid', $pid);
         $this->db->join('user_meta', 'discussions.uid=user_meta.id', 'inner');
-        $this->db->select('user_full_name, uid, comment, posted_on,profile_pic');
+        $this->db->select('discussions.id as cid, user_full_name, uid, comment, posted_on,profile_pic');
         $this->db->order_by('posted_on', 'DESC');
-        $limit == 'all' ?'': $this->db->limit(20);
+        $limit == 'all' ? '' : $this->db->limit(20);
         $query = $this->db->get();
         $count = 0;
         foreach ($query->result() as $row) {
@@ -28,9 +28,17 @@ class Discuss extends CI_Model {
             $row->profile_pic == '' ? $data[$count]['profile_pic'] = 'http://localhost/assemblepoint/ap/assets/img/anonymous.jpg' : $data[$count]['profile_pic'] = $row->profile_pic;
             $data[$count]['posted_on'] = date("d M Y H:i:s", $row->posted_on);
             $data[$count]['comment'] = $row->comment;
+            $data[$count]['cid'] = $row->cid;
             $count++;
         }
         return ($count >= 1 ? $data : FALSE);
+    }
+
+    public function delete_comment($cid,$uid) {
+        $this->db->where('id', $cid);
+        $this->db->where('uid', $uid);
+        $status = $this->db->delete('discussions') ? TRUE : FALSE;
+        return $status;
     }
 
 }

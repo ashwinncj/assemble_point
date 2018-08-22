@@ -10,11 +10,11 @@ class User extends CI_Model {
     public function get_uid() {
         return $_SESSION['uid'];
     }
-    
+
     public function is_sudo() {
-        return $_SESSION['sudo']? TRUE:FALSE;
+        return $_SESSION['sudo'] ? TRUE : FALSE;
     }
-    
+
     public function get_users() {
         $this->db->from('user_meta');
         $this->db->select('id');
@@ -66,7 +66,8 @@ class User extends CI_Model {
             $_SESSION['sudo'] = $row->sudo;
             $_SESSION['user_full_name'] = $row->user_full_name;
             $_SESSION['user_organization'] = $row->user_organization;
-            $row->profile_pic == '' ? $_SESSION['profile_pic'] = 'http://localhost/assemblepoint/ap/assets/img/anonymous.jpg' : $_SESSION['profile_pic'] = $row->profile_pic;
+            $row->profile_pic == '' ? $profile_pic = 'http://localhost/assemblepoint/ap/assets/img/anonymous.jpg' : $profile_pic = $row->profile_pic;
+            setcookie('profile_pic', $profile_pic, time() + (86400 * 30), "/"); // 86400 = 1 day
             $count++;
         }
     }
@@ -74,9 +75,17 @@ class User extends CI_Model {
     public function update_profile() {
         $this->db->set('user_full_name', $_POST['user_full_name']);
         $this->db->set('user_organization', $_POST['user_organization']);
-        $this->db->where('user_email', $_SESSION['user_email']);
+        $this->db->where('id', $this->get_uid());
         $status = $this->db->update('user_meta');
         $this->set_user_info($_SESSION['user_email']);
+        return $status;
+    }
+
+    public function update_profile_pic($pic) {
+        $this->db->set('profile_pic', base_url('assets/img/profileimg/' . $pic));
+        $this->db->where('id', $this->get_uid());
+        $status = $this->db->update('user_meta');
+        $status ? $this->set_user_info($_SESSION['user_email']) : '';
         return $status;
     }
 

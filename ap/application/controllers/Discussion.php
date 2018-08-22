@@ -32,7 +32,7 @@ class Discussion extends CI_Controller {
 
     public function comment() {
         $access = $this->user->get_access_level($_POST['pid']);
-        $access == 'comment' OR $access=='sudo'? '' : redirect('projects');
+        $access == 'comment' OR $access == 'sudo' ? '' : redirect('projects');
         $data['pid'] = $_POST['pid'];
         $pid = $_POST['pid'];
         $data['uid'] = $this->user->get_uid();
@@ -40,6 +40,11 @@ class Discussion extends CI_Controller {
         $data['posted_on'] = time();
         $status = $this->discuss->add_comment($data);
         $status ? redirect('discussion/project/' . $pid) : $_SESSION['error_msg'] = 'There was an error. Please try again.';
+    }
+
+    public function delete_comment($pid,$cid) {
+        $this->discuss->delete_comment($cid, $this->user->get_uid());
+        redirect('discussion/project/'.$pid);        
     }
 
 }
