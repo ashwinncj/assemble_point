@@ -1,7 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-
+<!--<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">-->
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>-->
+<link rel="stylesheet" href="<?php echo base_url('assets/css/summernote.css'); ?>">
+<script src="<?php echo base_url('assets/js/summernote.js'); ?>"></script>
 <title>Assemble Point</title>
 <style type="text/css">    
     #discussion-container-parent{
@@ -131,12 +134,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ?>            
             <?php if ($access == 'comment' OR $_SESSION['sudo'] == TRUE) { ?>
                 <div class="discussion-right">
+                    <span id="scroll-to"></span>
                     <span class="discussion-text">
                         <form action="<?php echo base_url('discussion/comment'); ?>" method="post">
                             <h5 class="profile-name"><?php echo $_SESSION['user_full_name']; ?></h5>
                             <span class="discussion-comment">
                                 <input type="text" value="<?php echo $pid; ?>" name="pid" style="display: none;">
-                                <textarea name="comment" id="comment-box" style="width: 100%;height: 150px"></textarea>
+                                <textarea name="comment" id="comment-box" style="width: 100%;height:400px"></textarea>
                             </span>
                             <p class="discussion-date">Comment on <?php echo date('d M Y'); ?></p>       
                             <button type="submit" id="new-comment">Comment</button>                           
@@ -146,6 +150,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
             <?php } else { ?>
                 <div class="discussion-right">
+                    <span id="scroll-to"></span>
                     <span class="discussion-text">
                         <h5 class="profile-name"><?php echo $_SESSION['user_full_name']; ?></h5>
                         <span class="discussion-comment" style="color: red">
@@ -160,6 +165,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 <script>
     $(document).ready(function () {
-        $("html, body").animate({scrollTop: $(document).height()}, 1000);
+        $('#comment-box').summernote({
+            height: 200, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor $(document).height()
+        });
+        $("html, body").animate({scrollTop: $('#scroll-to').position().top-550}, 1000);
+        console.log($('#scroll-to').position().top);
     });
 </script>
