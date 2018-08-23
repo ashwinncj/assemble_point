@@ -89,4 +89,10 @@ class User extends CI_Model {
         return $status;
     }
 
+    public function update_password($pwd) {
+        $this->db->set('user_password', $pwd);
+        $this->db->where('id', $this->get_uid());
+        return $this->db->update('user_meta');
+    }
+
 }

@@ -116,10 +116,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div id="profile-pic-update" style="margin-top: 25px">
                     <p style="font-size: 14px;font-weight: bold;color: gray;">Profile picture</p>
                     <hr>
-                    <img src="<?php echo $_COOKIE['profile_pic'];?>" style="width: 150px;border-radius: 50%">
+                    <img src="<?php echo $_COOKIE['profile_pic']; ?>" style="width: 150px;border-radius: 50%">
                     <form action="<?php echo base_url('profile/profile_pic_update'); ?>" method="post" enctype="multipart/form-data">
                         <input type="file" name="profile_pic" required style="margin: 20px 0 20px 0;">
                         <button type="submit" class="create-button">Update</button>
+                    </form>
+                </div>
+                <div id="change-password" style="margin-top: 25px">
+                    <p style="font-size: 14px;font-weight: bold;color: gray;">Change password</p>
+                    <hr>
+                    <form action="<?php echo base_url('reset/updatepassword'); ?>" method="post">
+                        <table>
+                            <tr>
+                                <td>Old password</td>
+                                <td> 
+                                    <input type="password" name="old_password" required placeholder="Old password">
+                                </td>                                
+                            </tr>                            
+                            <tr>
+                                <td>New password</td>
+                                <td>
+                                    <input type="password" name="new_password" required placeholder="New password">
+                                </td>                                
+                            </tr>                            
+                            <tr>
+                                <td>Confirm password</td>
+                                <td>
+                                    <input type="password" name="confirm_new_password" required placeholder="Confirm password">
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="submit" class="create-button">Change password</button>
+                                </td>
+                            </tr>                            
+                        </table>
                     </form>
                 </div>
             </div>
