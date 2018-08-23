@@ -25,7 +25,7 @@ class Profile extends CI_Controller {
     }
 
     public function profile_pic_update() {
-        $config['upload_path'] = './assets/img/profileimg/';
+        $config['upload_path'] = base_url().'/assets/img/profileimg/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['encrypt_name'] = TRUE;
         $this->load->library('upload', $config);
