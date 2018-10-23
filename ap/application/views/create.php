@@ -34,6 +34,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a href="<?php echo base_url('projects/newproject'); ?>">Create new project</a> / 
                     <a href="<?php echo base_url('projects/editproject'); ?>">Edit project</a>
                 </p>
+                <p>
+                    <a href="<?php echo base_url('projects/newdiscussion'); ?>">Create new discussion</a> / 
+                    <a href="<?php echo base_url('projects/editdiscussion'); ?>">Edit discussion</a>
+                </p>
                 <p><a href="<?php echo base_url('projects/newuser'); ?>">Add new user</a></p>
                 <p><a href="<?php echo base_url('projects/assignuser'); ?>">User privileges</a></p>
             </div>

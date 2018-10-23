@@ -16,14 +16,17 @@ class Discussion extends CI_Controller {
         redirect('projects');
     }
 
-    public function project($pid, $limit = 20) {
+    public function project($pid = 0, $did = 0, $limit = 20) {
+        $pid == 0 || $did == 0 ? redirect('projects') : FALSE;
         $this->load->model('project');
         $data['access'] = $this->user->get_access_level($pid);
         $data['uid'] = $this->user->get_uid();
         $data['pid'] = $pid;
+        $data['did'] = $did;
         (!$data['access'] ? redirect('/projects') : '');
         $data['project_info'] = $this->project->get_project_info($pid);
-        $data['comments'] = $this->discuss->get_comments($pid, $limit);
+        $data['discussion_info'] = $this->discuss->get_discussion_info($did);
+        $data['comments'] = $this->discuss->get_comments($pid, $did, $limit);
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('discussion', $data);
@@ -35,16 +38,27 @@ class Discussion extends CI_Controller {
         $access == 'comment' OR $access == 'sudo' ? '' : redirect('projects');
         $data['pid'] = $_POST['pid'];
         $pid = $_POST['pid'];
+        $did = $_POST['did'];
+        $data['did'] = $_POST['did'];
         $data['uid'] = $this->user->get_uid();
         $data['comment'] = $_POST['comment'];
         $data['posted_on'] = time();
         $status = $this->discuss->add_comment($data);
-        $status ? redirect('discussion/project/' . $pid) : $_SESSION['error_msg'] = 'There was an error. Please try again.';
+        $status ? redirect('discussion/project/' . $pid . '/' . $did) : $_SESSION['error_msg'] = 'There was an error. Please try again.';
     }
 
-    public function delete_comment($pid,$cid) {
+    public function delete_comment($pid, $cid) {
         $this->discuss->delete_comment($cid, $this->user->get_uid());
-        redirect('discussion/project/'.$pid);        
+        redirect('discussion/project/' . $pid);
+    }
+
+    public function all($pid = 0) {
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->model('user');
+        $data['info'] = $this->discuss->get_discussions_complete($this->user->get_uid(), $pid);
+        $this->load->view('discussions', $data);
+        $this->load->view('templates/footer');
     }
 
 }

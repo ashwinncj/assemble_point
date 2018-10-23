@@ -43,7 +43,7 @@ class Project extends CI_Model {
             $data[$count]['pid'] = $row->pid;
             $count++;
         }
-        return $data;
+        return isset($data) ? $data : FALSE;
     }
 
     public function assign_project($params) {
@@ -58,7 +58,7 @@ class Project extends CI_Model {
 
     public function get_projects_complete($uid) {
         $this->db->from('project_meta');
-        $this->db->join('access_control', 'project_meta.pid=access_control.pid','left');
+        $this->db->join('access_control', 'project_meta.pid=access_control.pid', 'left');
         if (!$_SESSION['sudo']) {
             $this->db->where('access_control.uid', $uid);
             $this->db->not_like('access_control.access_level', 'FALSE');

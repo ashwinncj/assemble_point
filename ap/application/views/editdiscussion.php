@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <title>Assemble Point</title>
 <div id="page-layout">
     <div id="page-layout-heading">
-        <p>Assign Privilages</p>
+        <p>Edit Discussion</p>
     </div>
     <div id="project-container-parent">
         <div id="project-container">
@@ -72,46 +72,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                         ?>
                     </span>
-                    <form action="<?php echo base_url('projects/assignprivilages'); ?>" method="post">
+                    <form action="<?php echo base_url('projects/discussioninfo'); ?>" method="post">
                         <table>
+                                                      
                             <tr>
-                                <td>User/Email</td>
-                                    <td>
-                                    <select name="uid" required>
-                                        <option selected disabled value="">Select user</option>
-                                        <?php foreach ($users as $value) { ?>
-                                            <option value="<?php echo $value['uid']; ?>">
-                                                <?php echo $value['user_name']; ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>                                
-                                </td> 
-                            </tr>                            
-                            <tr>
-                                <td>Project</td>
+                                <td>Discussion</td>
 <!--                                <td><input type="text" name="project_uid" required placeholder="Proect"></td>                                -->
                                 <td>
-                                    <select name="pid" required>
-                                        <option selected disabled value="">Select project</option>
+                                    <select name="did" required>
+                                        <option selected disabled value="">Select discussion</option>
                                         <?php foreach ($projects as $value) { ?>
-                                            <option value="<?php echo $value['pid']; ?>">
-                                                <?php echo $value['project_name']; ?>
+                                            <option value="<?php echo $value['did']; ?>">
+                                                <?php echo $value['discussion_name']; ?>
                                             </option>
                                         <?php } ?>
                                     </select>
                                 </td>                                
-                            </tr>                            
-                            <tr>
-                                <td>Role</td>
-                                <td>
-                                    <input type="radio" name="user_role" required value="FALSE" checked style="width: max-content;"><span> None</span><br>
-                                    <input type="radio" name="user_role" required value="view" checked style="width: max-content;"><span> View only</span><br>
-                                    <input type="radio" name="user_role" required value="comment" style="width: max-content;"><span> Comment</span>
-                                </td>                                
-                            </tr>
+                            </tr>                                                        
                             <tr>
                                 <td></td>
-                                <td><button id="create-button">Update</button></td>
+                                <td><button id="create-button">Edit</button></td>
                             </tr>
                         </table>
                     </form>

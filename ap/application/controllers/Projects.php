@@ -8,6 +8,7 @@ class Projects extends CI_Controller {
         parent::__construct();
         $this->load->model('auth');
         $this->load->model('project');
+        $this->load->model('discuss');
         ($this->auth->is_user_logged_in() ? '' : $_SESSION['error_msg'] = '* Please login to access your projects' AND redirect('/'));
     }
 
@@ -32,6 +33,15 @@ class Projects extends CI_Controller {
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('newproject');
+        $this->load->view('templates/footer');
+    }
+
+    public function newdiscussion() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
+        $data['projects'] = $this->project->get_projects_short();
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('newdiscussion', $data);
         $this->load->view('templates/footer');
     }
 
@@ -64,6 +74,17 @@ class Projects extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function editdiscussion() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
+        $this->load->model('user');
+        $this->load->model('discuss');
+        $data['projects'] = $this->discuss->get_discussions_short();
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('editdiscussion', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function register() {
         isset($_POST['user_email']) AND isset($_POST['user_password']) ? '' : redirect('projects/newuser');
         if (!$this->auth->user_exists($_POST['user_email'])) {
@@ -81,6 +102,14 @@ class Projects extends CI_Controller {
         $status ? $_SESSION['error_msg'] = 'New projected created successfully' AND redirect('projects/newproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
     }
 
+    public function adddiscussion() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
+        isset($_POST['discussion_name']) AND isset($_POST['discussion_description']) ? '' : redirect('projects/newdiscussion');
+        $this->load->model('discuss');
+        $status = $this->discuss->add_discussion($_POST);
+        $status ? $_SESSION['error_msg'] = 'New discussion created successfully' AND redirect('projects/newproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
+    }
+
     public function updateproject() {
         $this->auth->is_sudo() ? '' : redirect('projects');
         isset($_POST['project_name']) AND isset($_POST['project_description']) AND isset($_POST['pid']) ? '' : redirect('projects/editproject');
@@ -88,11 +117,25 @@ class Projects extends CI_Controller {
         $status ? $_SESSION['error_msg'] = 'Projected updated successfully' AND redirect('projects/editproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
     }
 
+    public function updatediscussion() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
+        isset($_POST['discussion_name']) AND isset($_POST['discussion_description']) AND isset($_POST['did']) ? '' : redirect('projects/editdiscussion');
+        $status = $this->discuss->update_discussion($_POST);
+        $status ? $_SESSION['error_msg'] = 'Discussion updated successfully' AND redirect('projects/editdiscussion') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newdiscussion');
+    }
+
     public function deleteproject() {
         $this->auth->is_sudo() ? '' : redirect('projects');
         isset($_POST['pid']) ? '' : redirect('projects/editproject');
         $status = $this->project->delete_project($_POST);
         $status ? $_SESSION['error_msg'] = 'Projected deleted successfully' AND redirect('projects/editproject') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
+    }
+
+    public function deletediscussion() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
+        isset($_POST['did']) ? '' : redirect('projects/editdiscussion');
+        $status = $this->discuss->delete_discussion($_POST);
+        $status ? $_SESSION['error_msg'] = 'Discussion deleted successfully' AND redirect('projects/editdiscussion') : $_SESSION['error_msg'] = 'There was an error. Please try again' AND redirect('projects/newproject');
     }
 
     public function projectinfo() {
@@ -103,6 +146,19 @@ class Projects extends CI_Controller {
         $this->load->view('templates/header');
         $this->load->view('templates/navbar');
         $this->load->view('projectinfo', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function discussioninfo() {
+        $this->auth->is_sudo() ? '' : redirect('projects');
+        isset($_POST['did']) ? '' : redirect('projects');
+        $this->load->model('discuss');
+        $data['projects'] = $this->project->get_projects_short();
+        $data['info'] = $this->discuss->get_discussion_info($_POST['did']);
+        $data['did'] = $_POST['did'];
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('discussioninfo', $data);
         $this->load->view('templates/footer');
     }
 

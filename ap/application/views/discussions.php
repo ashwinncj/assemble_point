@@ -82,7 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <title>Assemble Point</title>
 <div id="page-layout">
     <div id="page-layout-heading">
-        <p>Projects</p>
+        <p>Discussions</p>
     </div>
     <div id="project-container-parent">
         <?php if ($_SESSION['sudo']) { ?>
@@ -94,10 +94,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 foreach ($info as $value) {
                     ?>
                     <div class="col-lg-4 col-md-6 project-tile-container">
-                        <a href="<?php echo base_url('discussion/all/' . $value['pid']); ?>">
+                        <a href="<?php echo base_url('discussion/project/' . $value['pid'].'/'.$value['did']); ?>">
                             <div class="project-tile">
-                                <h4 class="project-name"><?php echo $value['project_name']; ?></h4>
-                                <p><?php echo $value['project_description']; ?></p>
+                                <h4 class="project-name"><?php echo $value['discussion_name']; ?></h4>
+                                <p><?php echo $value['discussion_description']; ?></p>
                                 <div class="project-created-date">Created on <?php echo $value['creation_date']; ?></div>
                             </div>
                         </a>
