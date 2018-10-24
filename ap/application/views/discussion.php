@@ -93,6 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <p>Discussion</p>
     </div>
     <div id="discussion-container-parent">
+        <p><a href="<?php echo base_url('discussion/all/'.$pid); ?>"><- Go back</a></p>
         <h3 id="project-name"><?php echo $discussion_info['discussion_name']; ?></h3>
         <h5 id="">in <?php echo $project_info['project_name']; ?></h5>
         <hr>
@@ -114,7 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <h5 class="profile-name"><?php echo $value['user_full_name'] ?></h5>
                                 <p class="discussion-comment"><?php echo $value['comment'] ?></p>
                                 <p class="discussion-date">Commented on <?php echo $value['posted_on'] ?></p>
-                                <p class="discussion-date"><a class="delete-comment-link" href="<?php echo base_url('discussion/delete_comment/' . $pid . '/' . $value['cid']); ?>">Delete comment</a></p>
+                                <p class="discussion-date"><a class="delete-comment-link" href="<?php echo base_url('discussion/delete_comment/' . $pid . '/' . $did . '/' . $value['cid']); ?>">Delete comment</a></p>
                             </span>
                             <span class="profile-img"><img src="<?php echo $value['profile_pic']; ?>"></span>
                         </div>
@@ -172,7 +173,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             minHeight: null, // set minimum height of editor
             maxHeight: null, // set maximum height of editor $(document).height()
         });
-        $("html, body").animate({scrollTop: $('#scroll-to').position().top-550}, 1000);
+        $("html, body").animate({scrollTop: $('#scroll-to').position().top - 550}, 1000);
         console.log($('#scroll-to').position().top);
     });
 </script>

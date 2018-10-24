@@ -85,6 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <p>Discussions</p>
     </div>
     <div id="project-container-parent">
+        <h3 id="project-name"><?php echo isset($info)? $info[0]['project_name']:''; ?></h3>
         <?php if ($_SESSION['sudo']) { ?>
             <a href="<?php echo base_url('/projects/create'); ?>"><button id="create-button">Create / Edit</button></a>
         <?php } ?>
@@ -94,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 foreach ($info as $value) {
                     ?>
                     <div class="col-lg-4 col-md-6 project-tile-container">
-                        <a href="<?php echo base_url('discussion/project/' . $value['pid'].'/'.$value['did']); ?>">
+                        <a href="<?php echo base_url('discussion/project/' . $value['pid'] . '/' . $value['did']); ?>">
                             <div class="project-tile">
                                 <h4 class="project-name"><?php echo $value['discussion_name']; ?></h4>
                                 <p><?php echo $value['discussion_description']; ?></p>

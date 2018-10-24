@@ -45,16 +45,18 @@ class Discuss extends CI_Model {
     public function get_discussions_complete($uid, $pid) {
         $this->db->from('discussion_meta');
         $this->db->join('access_control', 'discussion_meta.pid=access_control.pid', 'left');
+        $this->db->join('project_meta', 'discussion_meta.pid=project_meta.pid', 'left');
         if (!$_SESSION['sudo']) {
             $this->db->where('access_control.uid', $uid);
             $this->db->not_like('access_control.access_level', 'FALSE');
         }
         $this->db->where('discussion_meta.pid', $pid);
-        $this->db->select('discussion_name,discussion_meta.did as did,creation_date,discussion_description');
+        $this->db->select('discussion_name,discussion_meta.did as did,discussion_meta.creation_date as creation_date,discussion_description,project_meta.project_name as project_name');
         $this->db->order_by('creation_date', 'DESC');
         $query = $this->db->get();
         $count = 0;
         foreach ($query->result() as $row) {
+            $data[$count]['project_name'] = $row->project_name;
             $data[$count]['discussion_name'] = $row->discussion_name;
             $data[$count]['did'] = $row->did;
             $data[$count]['pid'] = $pid;

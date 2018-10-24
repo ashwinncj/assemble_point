@@ -47,9 +47,9 @@ class Discussion extends CI_Controller {
         $status ? redirect('discussion/project/' . $pid . '/' . $did) : $_SESSION['error_msg'] = 'There was an error. Please try again.';
     }
 
-    public function delete_comment($pid, $cid) {
+    public function delete_comment($pid, $did, $cid) {
         $this->discuss->delete_comment($cid, $this->user->get_uid());
-        redirect('discussion/project/' . $pid);
+        redirect('discussion/project/' . $pid . '/' . $did);
     }
 
     public function all($pid = 0) {
