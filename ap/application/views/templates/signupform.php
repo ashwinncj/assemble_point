@@ -20,5 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <input type="text" name="user_organization" required placeholder="Organization">
         <button type="submit">Signup</button>
     </form>
-    <p>Note: By clicking Signup below, you agree to all the <a href="<?php echo base_url('/termsandconditions'); ?>">Terms and Conditions</a> of RADEL Corp’s Assemble Point program.</p>
+    <p>Note: By clicking Signup below, you agree to all the <a href="<?php echo base_url('/termsandconditions'); ?>">Terms and Conditions</a> of RADEL Corp’s Assemble Point program.
+        <br>Have an account? <a href="<?php echo base_url('/home/login'); ?>">Login here</a><br>
+    </p>
 </div>

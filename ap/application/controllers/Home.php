@@ -29,6 +29,14 @@ class Home extends CI_Controller {
         $this->load->view('home', $data);
         $this->load->view('templates/footer');
     }
+    
+    public function forgotpassword() {
+        $data['form'] = 'forgotpassword';
+        $this->load->view('templates/header');
+        $this->load->view('templates/navbar');
+        $this->load->view('home', $data);
+        $this->load->view('templates/footer');
+    }
 
     public function authenticate() {
         //Check if valid post data is sent before trying to login to the system.

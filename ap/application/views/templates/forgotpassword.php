@@ -10,11 +10,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
         ?>
     </span>
-    <form action="<?php echo base_url('/home/authenticate'); ?>" method="post">
+    <form action="<?php echo base_url('/home/forgotpassword'); ?>" method="post">
         <input type="email" name="user_email" required placeholder="Email">
-        <input type="password" name="user_password" required placeholder="Password">
-        <button type="submit">Login</button>
+        <button type="submit">Reset password</button>
     </form>
-    <p>Forgot password? <a href="<?php echo base_url('/home/forgotpassword'); ?>">Click here</a><br>
+    <p>Have an account? <a href="<?php echo base_url('/home/login'); ?>">Login here</a><br>
         Need a new account? <a href="<?php echo base_url('/home/signup'); ?>">Signup here</a></p>
 </div>
